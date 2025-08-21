@@ -12,7 +12,7 @@ const app = express();
 // Middlewares
 app.use(cors());
 app.use(express.json());
-app.use('/test', (req, res) => {
+app.use('/api/test', (req, res) => {
   res.send('Hola Backend 🚀');
 });
 // Rutas
@@ -28,5 +28,6 @@ mongoose.connect('mongodb+srv://singravedad777:singravedad777@cluster0.ri8pn3e.m
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => console.log(`Servidor corriendo en puerto ${PORT}`));
+
 
 
