@@ -48,11 +48,11 @@ router.post("/login", async (req, res) => {
     );
 
     // Respuesta al frontend
-    res.json({
+   res.json({
       token,
       email: usuario.email,
       nombre: usuario.nombre,
-      rol: usuario.rol || "user" // por si no existe, le damos un rol por defecto
+      role: usuario.role  // <- agregamos role aquí
     });
   } catch (error) {
     console.error(error);
@@ -220,5 +220,6 @@ router.post("/confirmar-codigo", async (req, res) => {
 
 
 module.exports = router;
+
 
 
