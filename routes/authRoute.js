@@ -43,7 +43,7 @@ router.post("/login", async (req, res) => {
     // Generar token si todo está ok
     const token = jwt.sign(
       { id: usuario._id, rol: usuario.rol }, // incluir rol también en el token
-      process.env.JWT_SECRET,
+      'Eloamladafdflksdafjlfjlsdjfsdfjlsdjflkjsdflkajsdfkljasldkjmnmmn',
       { expiresIn: "1h" }
     );
 
@@ -220,4 +220,5 @@ router.post("/confirmar-codigo", async (req, res) => {
 
 
 module.exports = router;
+
 
