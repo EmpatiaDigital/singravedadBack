@@ -7,7 +7,7 @@ const Music = require("../models/Music");
 const router = express.Router();
 const upload = multer({
   storage: multer.memoryStorage(),
-  limits: { fileSize: 50 * 1024 * 1024 }, // 50 MB, ajusta según necesidad
+  limits: { fileSize: 100 * 1024 * 1024 }, // 100 MB
 });
 
 cloudinary.config({
@@ -155,3 +155,4 @@ router.delete("/:id", async (req, res) => {
 });
 
 module.exports = router;
+
