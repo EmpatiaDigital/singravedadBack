@@ -26,20 +26,40 @@ router.post("/login", async (req, res) => {
   try {
     const { email, password } = req.body;
     const usuario = await Usuario.findOne({ email });
-    if (!usuario) return res.status(400).json({ mensaje: "Usuario no encontrado" });
+    if (!usuario) {
+      return res.status(400).json({ mensaje: "Usuario no encontrado" });
+    }
+
+    // Bloquear login si no confirmó su cuenta
+    if (!usuario.confirmado) {
+      return res.status(403).json({ mensaje: "Debes confirmar tu cuenta antes de iniciar sesión" });
+    }
 
     const isMatch = await bcrypt.compare(password, usuario.password);
-    if (!isMatch) return res.status(400).json({ mensaje: "Contraseña incorrecta" });
+    if (!isMatch) {
+      return res.status(400).json({ mensaje: "Contraseña incorrecta" });
+    }
 
     // Generar token si todo está ok
-    const token = jwt.sign({ id: usuario._id }, process.env.JWT_SECRET, { expiresIn: "1h" });
+    const token = jwt.sign(
+      { id: usuario._id, rol: usuario.rol }, // incluir rol también en el token
+      process.env.JWT_SECRET,
+      { expiresIn: "1h" }
+    );
 
-    res.json({ token, email: usuario.email, nombre: usuario.nombre });
+    // Respuesta al frontend
+    res.json({
+      token,
+      email: usuario.email,
+      nombre: usuario.nombre,
+      rol: usuario.rol || "user" // por si no existe, le damos un rol por defecto
+    });
   } catch (error) {
     console.error(error);
     res.status(500).json({ mensaje: "Error en el servidor" });
   }
 });
+
 
 
 // Registro con confirmación por correo
@@ -200,3 +220,4 @@ router.post("/confirmar-codigo", async (req, res) => {
 
 
 module.exports = router;
+
