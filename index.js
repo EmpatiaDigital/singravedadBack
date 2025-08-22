@@ -1,12 +1,6 @@
 const express = require("express");
 const cors = require("cors");
 const mongoose = require("mongoose");
-app.use(cors());
-app.use(express.json());
-app.use('/api/test', (req, res) => {
-  res.send('Hola Backend 🚀');
-});
-require("dotenv").config();
 
 const authRoute = require("./routes/authRoute");
 const uploadRoute = require("./routes/uploadRoute");
@@ -15,7 +9,12 @@ const musicRoute = require('./routes/musicRoute');
 const app = express();
 
 // Middlewares
-
+app.use(cors());
+app.use(express.json());
+app.use('/api/test', (req, res) => {
+  res.send('Hola Backend 🚀');
+});
+require("dotenv").config();
 // Rutas
 app.use("/api/auth", authRoute);
 app.use("/api/upload", uploadRoute);
@@ -29,6 +28,7 @@ mongoose.connect('mongodb+srv://singravedad777:singravedad777@cluster0.ri8pn3e.m
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => console.log(`Servidor corriendo en puerto ${PORT}`));
+
 
 
 
