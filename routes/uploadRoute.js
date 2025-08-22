@@ -6,14 +6,21 @@ const Imagen = require("../models/Imagen");
 const router = express.Router();
 const upload = multer({ storage: multer.memoryStorage() });
 
+// cloudinary.config({
+//   //   cloud_name: process.env.CLOUD_NAME,
+//   cloud_name: "ddvnk4ki5",
+//   //   api_key: process.env.CLOUD_KEY,
+//   api_key: "143165765674465",
+//   //   api_secret: process.env.CLOUD_SECRET
+//   api_secret: "V1OWGNZRqc5L0ELstiKH7MKUABo",
+//   timeout: 120000,
+// });
+
+
 cloudinary.config({
-  //   cloud_name: process.env.CLOUD_NAME,
-  cloud_name: "ddvnk4ki5",
-  //   api_key: process.env.CLOUD_KEY,
-  api_key: "143165765674465",
-  //   api_secret: process.env.CLOUD_SECRET
-  api_secret: "V1OWGNZRqc5L0ELstiKH7MKUABo",
-  timeout: 120000,
+  cloud_name: process.env.CLOUD_NAME,
+  api_key: process.env.CLOUD_KEY,
+  api_secret: process.env.CLOUD_SECRET
 });
 
 // Subir imagen
@@ -44,4 +51,5 @@ router.get("/imagenes", async (req, res) => {
 });
 
 module.exports = router;
+
 
